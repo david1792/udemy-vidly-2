@@ -6,7 +6,7 @@ using System.Web.Mvc;
 using Vidly.Models;
 using Vidly.ViewModels;
 
-namespace UdemyCourse.Controllers
+namespace Vidly.Controllers
 {
     public class MovieController : Controller
     {

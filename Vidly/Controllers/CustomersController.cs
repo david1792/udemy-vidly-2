@@ -5,29 +5,45 @@ using System.Web;
 using System.Web.Mvc;
 using Vidly.Models;
 
-namespace UdemyCourse.Controllers
+namespace Vidly.Controllers
 {
     public class CustomersController : Controller
     {
+        private ApplicationDbContext _context;
         List<Customer> customers = new List<Customer>()
         {
             new Customer{ Name = "Customer 1", Id = 1},
             new Customer{Name = "Customer 2", Id = 2}
         };
         // GET: Customers
+        public CustomersController()
+        {
+            _context = new ApplicationDbContext();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        }
+
         public ActionResult Index()
         {
-            int random = new Random().Next(2);
-            System.Diagnostics.Debug.WriteLine(random);
-            if (random == 0)
-            {
-               customers.Clear();
-            }
+            var customers = _context.Customers.ToList();
             return View(customers);
         }
         public ActionResult ShowDetails(int id)
         {
-            return View(customers.Where(i => i.Id == id).FirstOrDefault());
+            return View(_context.Customers.Where(i => i.Id == id).SingleOrDefault());
         }
+
+        public IEnumerable<Customer> GetCustomers()
+        {
+            return new List<Customer>
+            {
+                new Customer {Name = "Customer 1", Id = 1},
+                new Customer {Name = "Customer 2", Id = 2}
+            };
+        }
+
     }
 }
