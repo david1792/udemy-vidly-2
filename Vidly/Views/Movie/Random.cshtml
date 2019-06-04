@@ -1,0 +1,25 @@
+﻿@model UdemyCourse.ViewModels.RandomMovieViewModel
+@{
+    ViewBag.Title = "Random";
+}
+@{
+    var className = Model.Customers.Count > 0 ? "popular" : null;
+}
+<h2 class="@className">@Model.Movie.Name</h2>
+@*
+    this is a comment in razor    
+*@
+
+@if (Model.Customers.Count == 0)
+{
+    <p>No one rented this movie before</p>
+}
+else
+{
+<ul>
+    @foreach (var item in Model.Customers)
+    {
+        <li>@item.Name</li>
+    }
+</ul>
+}

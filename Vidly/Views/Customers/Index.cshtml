@@ -1,0 +1,45 @@
+﻿@model IEnumerable<UdemyCourse.Models.Customer>
+@*
+    Note: I've set the model for this view to IEnumerable<Customer>.
+    This is a simple interface implemented by the list class. Since
+    in this view we only want to iterate over this list, and we don't
+    need any of the operations in the List class (eg Add, Remove, etc),
+    it's better to use the IEnumerable interface, which allows use to
+    iterate over the list. If in the future, we replace the List with a
+    different data structure, as long as it is enumerable, our view code
+    will remain unchanged.
+*@
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+@if (!@Model.Any())
+{
+    @*Any method is for list, == null for single object*@
+    <h2>forbiden prro</h2>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>options</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var i in Model)
+            {
+                <tr>
+                    <td>@i.Id</td>
+                    <td>@i.Name</td>
+                    <td>@Html.ActionLink("Details", "ShowDetails", "Customers", new { id = i.Id }, null)</td>@*Si no ponemos el 4to argumento en null no se renderiza bien la url en el enlace*@
+                </tr>
+            }
+        </tbody>
+    </table>
+}
