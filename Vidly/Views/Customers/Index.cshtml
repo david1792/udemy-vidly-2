@@ -28,18 +28,20 @@ else
             <tr>
                 <th>Id</th>
                 <th>Name</th>
+                <th>Discount rate</th>
                 <th>options</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var i in Model)
+            @foreach (var i in Model) 
             {
-                <tr>
-                    <td>@i.Id</td>
-                    <td>@i.Name</td>
-                    <td>@Html.ActionLink("Details", "ShowDetails", "Customers", new { id = i.Id }, null)</td>@*Si no ponemos el 4to argumento en null no se renderiza bien la url en el enlace*@
-                </tr>
+            <tr>
+                <td>@i.Id</td>
+                <td>@i.Name</td>
+                <td>@i.MembershipType.DiscountRate %</td>
+                <td>@Html.ActionLink("Details", "ShowDetails", "Customers", new { id = i.Id }, null)</td>@*Si no ponemos el 4to argumento en null no se renderiza bien la url en el enlace*@
+            </tr>
             }
         </tbody>
     </table>
-}
+} 
