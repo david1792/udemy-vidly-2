@@ -23,12 +23,12 @@
 }
 else
 {
-    <table>
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Name</th>
-                <th>Discount rate</th>
+                <th>Discount description</th>
                 <th>options</th>
             </tr>
         </thead>
@@ -38,7 +38,7 @@ else
             <tr>
                 <td>@i.Id</td>
                 <td>@i.Name</td>
-                <td>@i.MembershipType.DiscountRate %</td>
+                <td>@i.MembershipType.MembershipDescription</td>
                 <td>@Html.ActionLink("Details", "ShowDetails", "Customers", new { id = i.Id }, null)</td>@*Si no ponemos el 4to argumento en null no se renderiza bien la url en el enlace*@
             </tr>
             }
