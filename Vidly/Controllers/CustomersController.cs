@@ -34,7 +34,7 @@ namespace Vidly.Controllers
         }
         public ActionResult ShowDetails(int id)
         {
-            return View(_context.Customers.Include(c => c.MembershipType).Where(i => i.Id == id).SingleOrDefault());
+            return View(_context.Customers.Include(c => c.MembershipType).SingleOrDefault(i => i.Id == id));
         }
 
         public IEnumerable<Customer> GetCustomers()
