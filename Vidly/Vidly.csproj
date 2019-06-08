@@ -207,6 +207,10 @@
     <Compile Include="Migrations\201906050115377_AddGenreModel.Designer.cs">
       <DependentUpon>201906050115377_AddGenreModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906081625140_modificationsInMembershipType.cs" />
+    <Compile Include="Migrations\201906081625140_modificationsInMembershipType.Designer.cs">
+      <DependentUpon>201906081625140_modificationsInMembershipType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -215,6 +219,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MembershipType.cs" />
     <Compile Include="Models\Movie.cs" />
+    <Compile Include="ViewModels\NewCustomerViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\RandomMovieViewModel.cs" />
@@ -323,6 +328,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906050115377_AddGenreModel.resx">
       <DependentUpon>201906050115377_AddGenreModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906081625140_modificationsInMembershipType.resx">
+      <DependentUpon>201906081625140_modificationsInMembershipType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
