@@ -8,11 +8,13 @@
 @using (Html.BeginForm("Create", "Customers"))
 {
     <div class="form-group">
+                      @*'c' as a model goes to 'c' dot 'name'*@
         @Html.LabelFor(c => c.Name)
-        @Html.TextBoxFor(c => c.Name, new { @class = "form-control" })@*i can pass an annonimous object and any properties we add to thi sobject will be rendered as an html attributes, if intellisense detect error maybe we use a reserver keyword like class, so we fix this add @*@
+        @Html.TextBoxFor(c => c.Name, new {@class = "form-control"})@*i can pass an annonimous object and any properties we add to thi sobject will be rendered as an html attributes, if intellisense detect error maybe we use a reserver keyword like class, so we fix this add @*@
     </div>
     <div class="form-group">
-        @Html.LabelFor(c => c.BirthDate)
+        @Html.LabelFor(c => c.BirthDate)<br/>
+        <label for="BirthDate">Date of birth 2dn alterantive</label>
         @Html.TextBoxFor(c => c.BirthDate, new { @class = "form-control" })@*i can pass an annonimous object and any properties we add to thi sobject will be rendered as an html attributes, if intellisense detect error maybe we use a reserver keyword like class, so we fix this add @*@
     </div>
     <div class="checkbox">
