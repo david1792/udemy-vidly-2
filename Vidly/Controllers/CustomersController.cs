@@ -45,9 +45,14 @@ namespace Vidly.Controllers
          * nvc framework is it smart enough to bind this object to form data becouse all the keys in the form data are prefixed but customer
          * this is how model binding works  
          */
-        public ActionResult Create(NewCustomerViewModel viewModel)
+        public ActionResult Create(Customer customer)
         {
-            return View(viewModel);
+            _context.Customers.Add(customer);// in this point, the entity is save in memory
+            _context.SaveChanges();// in this point, the entity is save in DB and generates all the sql statements
+            //all these statements are wrapped in a transaction, so all changes are persisted or nothing get persisted
+
+
+            return RedirectToAction("Index", "Customers");
         }
         public ActionResult Index() 
         {
