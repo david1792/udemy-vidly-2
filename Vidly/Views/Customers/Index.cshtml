@@ -39,7 +39,7 @@ else
                 <td>@i.Id</td>
                 <td>@i.Name</td>
                 <td>@i.MembershipType.MembershipDescription</td>
-                <td>@Html.ActionLink("Details", "ShowDetails", "Customers", new { id = i.Id }, null)</td>@*Si no ponemos el 4to argumento en null no se renderiza bien la url en el enlace*@
+                <td>@Html.ActionLink("Details", "Edit", "Customers", new { id = i.Id }, null)</td>@*Si no ponemos el 4to argumento en null no se renderiza bien la url en el enlace*@
             </tr>
             }
         </tbody>
