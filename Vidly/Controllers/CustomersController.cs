@@ -36,6 +36,7 @@ namespace Vidly.Controllers
             };
             return View("CustomerForm", viewModel);
         }
+
         [HttpPost]
         /*
          *mvc framework automatically map request data to the párameter object
@@ -45,13 +46,34 @@ namespace Vidly.Controllers
          * nvc framework is it smart enough to bind this object to form data becouse all the keys in the form data are prefixed but customer
          * this is how model binding works  
          */
-        public ActionResult Create(Customer customer)
+        public ActionResult Save(Customer customer)
         {
-            _context.Customers.Add(customer);// in this point, the entity is save in memory
-            _context.SaveChanges();// in this point, the entity is save in DB and generates all the sql statements
-            //all these statements are wrapped in a transaction, so all changes are persisted or nothing get persisted
+            if (customer.Id != 0)
+            {
+                var customerInDb = _context.Customers.Single(c => c.Id == customer.Id);
+                /*
+                 * to update we have to aproach to update a model:
+                 * 1. microsoft .net mvc tutorials used a method in Controller class call TryUpdateModel(<model here>)
+                 * but its going to open up a number of issues, that aproach open up a security holes in your application
+                 * because update all value pairs in our model, a malicius user can modify your request data and add aditional keys
+                 * value pairs in form data and this method will succesfully update all properties. recomend method is set mannualy the properties what we wish update
+                 */
+                customerInDb.Name = customer.Name;
+                customerInDb.BirthDate = customer.BirthDate;
+                customerInDb.MembershipTypeId = customer.MembershipTypeId;
+                customerInDb.isSuscribedToNewsletter = customer.isSuscribedToNewsletter;
+                //other aproach is use a library that maps automaticaly the properties like automaper library
+                //and the code may look like this: Mapper.map(customer, customerInId);
+                //other way is create a helper model with the properties what we can update only, helper model like UpdateCustomerDTO 
+                _context.SaveChanges();
+            }
+            else
+            {
+                _context.Customers.Add(customer); // in this point, the entity is save in memory
+                _context.SaveChanges(); // in this point, the entity is save in DB and generates all the sql statements
+                //all these statements are wrapped in a transaction, so all changes are persisted or nothing get persisted  
 
-
+            }
             return RedirectToAction("Index", "Customers");
         }
         public ActionResult Index() 

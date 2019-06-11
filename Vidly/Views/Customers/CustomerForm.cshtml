@@ -5,7 +5,7 @@
 
 <h2>New</h2>
 
-@using (Html.BeginForm("Create", "Customers"))
+@using (Html.BeginForm("Save", "Customers"))
 {
     <div class="form-group">
                       @*'c' as a model goes to 'c' dot 'name'*@
@@ -27,6 +27,9 @@
 
         </label>
     </div>
-
+    @*In this case we don't sent to the controller the id of the customer, to solve this, we add a new hidden input for the id
+        By convention this hidden id after of submit button
+        *@
+    @Html.HiddenFor(c => c.Customer.Id)
     <button type="submit" class="btn bg-primary">Save</button>
-}
+} 
