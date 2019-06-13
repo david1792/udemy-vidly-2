@@ -9,7 +9,7 @@ namespace Vidly.Models
     public class Customer
     {
         public int Id { get; set; }
-        [Required]//this anotation make this attribute no nullable
+        [Required(ErrorMessage = "Please enter customer's name")]//this anotation make this attribute no nullable
         [StringLength(255)]
         public string Name { get; set; }
         public bool isSuscribedToNewsletter { get; set; }
