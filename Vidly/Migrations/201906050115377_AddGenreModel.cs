@@ -11,7 +11,7 @@ namespace Vidly.Migrations
                 "dbo.Movies",
                 c => new
                     {
-                        Id = c.Int(nullable: false),
+                        Id = c.Int(nullable: false, identity:true ),
                         Name = c.String(),
                         ReleaseDate = c.DateTime(nullable: false),
                         DateAdded = c.DateTime(nullable: false),

@@ -11,6 +11,7 @@
                       @*'c' as a model goes to 'c' dot 'name'*@
         @Html.LabelFor(c => c.Customer.Name)
         @Html.TextBoxFor(c => c.Customer.Name, new {@class = "form-control"})@*i can pass an annonimous object and any properties we add to thi sobject will be rendered as an html attributes, if intellisense detect error maybe we use a reserver keyword like class, so we fix this add @*@
+        @Html.ValidationMessageFor(c => c.Customer.Name)
     </div> 
     <div class="form-group">
         @Html.LabelFor(c => c.Customer.BirthDate)<br/>
@@ -19,7 +20,10 @@
     </div>
     <div class="form-group">
         @Html.LabelFor(c => c.Customer.MembershipTypeId)
-        @Html.DropDownListFor(c => c.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select one prro", new {@class = "form-control"})
+        @Html.DropDownListFor(c => c.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select one prro", new { @class = "form-control" })
+        @Html.ValidationMessageFor(c => c.Customer.MembershipTypeId)
+        @*Membershipid has validation because is byte datatype and implicity is non nullable field, if we explore
+         the dropdown,  "Select one prro" has no value and mvc framework send us and error modelstate*@
     </div>
     <div class="checkbox">
         <label>

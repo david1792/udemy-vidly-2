@@ -5,27 +5,30 @@
 }
 
 <h2>Index</h2>
-
+@Html.ActionLink("new movie", "Save", "Movie", null, new { @class = "btn btn-primary" })
 <table class="table table-striped">
     <thead>
-    <tr>
-        <td>Genre</td>
-        <td>Release date</td>
-        <td>Date added</td>
-        <td>stock</td>
-        <td>options</td>
-    </tr>
+        <tr>
+            <td>Genre</td>
+            <td>Release date</td>
+            <td>Date added</td>
+            <td>stock</td>
+            <td>options</td>
+        </tr>
     </thead>
     <tbody>
         @foreach (var i in Model)
         {
-        <tr>
-            <td>@i.Genre.Description</td>
-            <td>@i.ReleaseDate</td>
-            <td>@i.DateAdded</td>
-            <td>@i.Stock</td>
-            <td>@Html.ActionLink("Details", "ShowDetails", "Movie", new { id = i.Id }, null)</td>
-        </tr>
+            <tr>
+                <td>@i.Genre.Description</td>
+                <td>@i.ReleaseDate</td>
+                <td>@i.DateAdded</td>
+                <td>@i.Stock</td>
+                <td>
+                    @Html.ActionLink("Details", "ShowDetails", "Movie", new { id = i.Id }, null)
+                                @Html.ActionLink("Edit", "SaveEdition", "Movie", new { id = i.Id }, null)
+                            </td>
+            </tr>
         }
     </tbody>
 </table>

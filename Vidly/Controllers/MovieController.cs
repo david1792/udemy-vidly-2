@@ -47,7 +47,48 @@ namespace Vidly.Controllers
                 Customers = customers
             };
             return View(viewModel);
-        }
 
+        }
+        public ActionResult Save()
+        {
+            MovieFormViewModel movieFormViewModel = new MovieFormViewModel()
+            {
+                Genres = _context.Genres.ToList()
+            };
+            return View("Save", movieFormViewModel);
+        }
+        [ActionName("SaveEdition")]
+        public ActionResult Save(int id)
+        {
+
+            MovieFormViewModel movieFormViewModel = new MovieFormViewModel()
+            {
+                Genres = _context.Genres.ToList(),
+                Movie = _context.Movies.Single(m => m.Id == id)
+            };
+            return View("Save", movieFormViewModel);
+        }
+        [HttpPost]
+        public ActionResult Save(MovieFormViewModel movieFormViewModel)
+        {
+            
+            if (movieFormViewModel.Movie.Id == 0)
+            {
+                _context.Movies.Add(movieFormViewModel.Movie);
+                _context.SaveChanges();
+            }
+            else
+            {
+                MovieFormViewModel movieFormViewModelDb = new MovieFormViewModel();
+                movieFormViewModelDb.Movie = _context.Movies.Single(x => x.Id == movieFormViewModel.Movie.Id);
+                movieFormViewModelDb.Movie.DateAdded = movieFormViewModel.Movie.DateAdded;
+                movieFormViewModelDb.Movie.GenreId = movieFormViewModel.Movie.GenreId;
+                movieFormViewModelDb.Movie.Name = movieFormViewModel.Movie.Name;
+                movieFormViewModelDb.Movie.ReleaseDate = movieFormViewModel.Movie.ReleaseDate;
+                movieFormViewModelDb.Movie.Stock = movieFormViewModel.Movie.Stock;
+                _context.SaveChanges();
+            }
+            return RedirectToAction("Index", "Movie");
+        }
     }
 }

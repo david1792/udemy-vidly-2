@@ -48,6 +48,15 @@ namespace Vidly.Controllers
          */
         public ActionResult Save(Customer customer)
         {
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new CustomerFormViewModel()
+                {
+                    Customer = customer,
+                    MembershipTypes = _context.MembershipTypes.ToList()
+                };
+                return View("CustomerForm", viewModel);
+            }
             if (customer.Id != 0)
             {
                 var customerInDb = _context.Customers.Single(c => c.Id == customer.Id);
