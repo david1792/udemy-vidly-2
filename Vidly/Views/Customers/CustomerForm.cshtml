@@ -42,3 +42,17 @@
     @Html.HiddenFor(c => c.Customer.Id)
     <button type="submit" class="btn bg-primary">Save</button>
 } 
+
+@section scripts
+{
+    @*
+    if we need to add a few extra and basic field validation, mvc provide a jquery validation plugin to validate all field, the reason to do this is to send the less information to server to save resources
+    *@
+    @Scripts.Render("~/bundles/jqueryval");
+    @*
+        
+    with this bundle we add extra validations binding with data anotations in ours models, html helper methods like TextBoxFor and ValidationMessageFor , and we have and extra validations with custom validations to add server side bussiness logic but this logic can't binding to  jquery val bundle
+        so we delegate the validations, front side validates basic information and server side validate bussiness validations. if we press f12 and see the network tab, if exist error the form is not send to server :)
+        *@
+
+}
