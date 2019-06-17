@@ -12,11 +12,12 @@ namespace Vidly.Models
         [Required(ErrorMessage = "Please enter customer's name")]//this anotation make this attribute no nullable
         [StringLength(255)]
         public string Name { get; set; }
-        public bool isSuscribedToNewsletter { get; set; }
+        public bool IsSuscribedToNewsletter { get; set; }
         public MembershipType MembershipType { get; set; }
         [Display(Name = "Membership type")]
         public byte MembershipTypeId { get; set; }
         [Display(Name = "Date of birth")]
-        public DateTime BirthDate { get; set; }
+        [Min18YearsIfAMember]
+        public DateTime? BirthDate { get; set; }
     }  
 }

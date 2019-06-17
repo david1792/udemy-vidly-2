@@ -70,7 +70,7 @@ namespace Vidly.Controllers
                 customerInDb.Name = customer.Name;
                 customerInDb.BirthDate = customer.BirthDate;
                 customerInDb.MembershipTypeId = customer.MembershipTypeId;
-                customerInDb.isSuscribedToNewsletter = customer.isSuscribedToNewsletter;
+                customerInDb.IsSuscribedToNewsletter = customer.IsSuscribedToNewsletter;
                 //other aproach is use a library that maps automaticaly the properties like automaper library
                 //and the code may look like this: Mapper.map(customer, customerInId);
                 //other way is create a helper model with the properties what we can update only, helper model like UpdateCustomerDTO 
