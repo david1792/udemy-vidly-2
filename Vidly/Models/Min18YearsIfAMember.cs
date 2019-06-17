@@ -11,7 +11,11 @@ namespace Vidly.Models
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             var customer = (Customer) validationContext.ObjectInstance;
-            if (customer.MembershipTypeId == 0 || customer.MembershipTypeId == 1)
+            /*
+             * to make this code more maintainable and no use magic numbers we have two options: 1st is query the database and looking for the value, 2dn is create fields static and readonly attributes descripting the values in database, or in this case in our migration
+             * other solution is declare a enum but we need to cast when we use custom validations 
+             */
+            if (customer.MembershipTypeId == MembershipType.Uknown || customer.MembershipTypeId == MembershipType.PayAsYouGo)
             {
                 return ValidationResult.Success;
             }
