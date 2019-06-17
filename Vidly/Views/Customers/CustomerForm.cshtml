@@ -7,17 +7,15 @@
 
 @using (Html.BeginForm("Save", "Customers"))
 {
+    @Html.ValidationSummary(true, "please fix the following errors")
+    @*if we want to list all the error, individual property errors use  @Html.ValidationSummary()
+        if we want to show a universal error message use: @Html.ValidationSummary(true, "please fix the following errors")
+        *@
     <div class="form-group">
                       @*'c' as a model goes to 'c' dot 'name'*@
         @Html.LabelFor(c => c.Customer.Name)
         @Html.TextBoxFor(c => c.Customer.Name, new {@class = "form-control"})@*i can pass an annonimous object and any properties we add to thi sobject will be rendered as an html attributes, if intellisense detect error maybe we use a reserver keyword like class, so we fix this add @*@
         @Html.ValidationMessageFor(c => c.Customer.Name)
-    </div> 
-    <div class="form-group">
-        @Html.LabelFor(c => c.Customer.BirthDate)<br/>
-        <label for="BirthDate">Date of birth 2dn alterantive</label>
-        @Html.TextBoxFor(c => c.Customer.BirthDate, "{0:d MMM yyyy}", new { @class = "form-control" })@*i can pass an annonimous object and any properties we add to thi sobject will be rendered as an html attributes, if intellisense detect error maybe we use a reserver keyword like class, so we fix this add @*@
-        @Html.ValidationMessageFor(c => c.Customer.BirthDate)
     </div>
     <div class="form-group">
         @Html.LabelFor(c => c.Customer.MembershipTypeId)
@@ -25,6 +23,12 @@
         @Html.ValidationMessageFor(c => c.Customer.MembershipTypeId)
         @*Membershipid has validation because is byte datatype and implicity is non nullable field, if we explore
          the dropdown,  "Select one prro" has no value and mvc framework send us and error modelstate*@
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(c => c.Customer.BirthDate)<br/>
+        <label for="BirthDate">Date of birth 2dn alterantive</label>
+        @Html.TextBoxFor(c => c.Customer.BirthDate, "{0:d MMM yyyy}", new { @class = "form-control" })@*i can pass an annonimous object and any properties we add to thi sobject will be rendered as an html attributes, if intellisense detect error maybe we use a reserver keyword like class, so we fix this add @*@
+        @Html.ValidationMessageFor(c => c.Customer.BirthDate)
     </div>
     <div class="checkbox">
         <label>

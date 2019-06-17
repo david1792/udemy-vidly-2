@@ -30,8 +30,13 @@ namespace Vidly.Controllers
         public ActionResult New()
         {
             var membershipTypes = _context.MembershipTypes.ToList();
+            /*
+             * when we use html.validationSummary, the list if errors apear which id is required but we know id is an identity field,
+             * so to omit this error, we need to initialize the customer in the viewmodel, get method to assign the defaults values and  html rendel our hidden field id with  value = 0
+             */
             var viewModel = new CustomerFormViewModel()
             {
+                Customer = new Customer(),
                 MembershipTypes = membershipTypes
             };
             return View("CustomerForm", viewModel);
