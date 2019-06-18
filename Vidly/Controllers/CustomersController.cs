@@ -41,7 +41,7 @@ namespace Vidly.Controllers
             };
             return View("CustomerForm", viewModel);
         }
-
+        [ValidateAntiForgeryToken] 
         [HttpPost]
         /*
          *mvc framework automatically map request data to the párameter object

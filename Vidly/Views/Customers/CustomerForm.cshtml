@@ -40,6 +40,7 @@
         By convention this hidden id after of submit button
         *@
     @Html.HiddenFor(c => c.Customer.Id)
+    @Html.AntiForgeryToken() @*create a secret token and put it in a secret input  and a cookie in the user's computer*@
     <button type="submit" class="btn bg-primary">Save</button>
 } 
 
