@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using Vidly.Models.CustomValidations;
 
 namespace Vidly.Models
 {
@@ -20,6 +21,7 @@ namespace Vidly.Models
         [Display(Name = "Released date")]
         public DateTime DateAdded { get; set; }
         [Required]
+        [Validate20Stock]
         public int Stock { get; set; }
         public Genre Genre { get; set; }
         [Required]
