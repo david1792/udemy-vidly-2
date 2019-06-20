@@ -19,7 +19,6 @@ namespace Vidly.Models.CustomValidations
             {
                 return new ValidationResult("Enter range between 1 and 20");
             }
-            return base.IsValid(value, validationContext);
         }
     }
 }
