@@ -30,7 +30,7 @@ namespace Vidly.Controllers.api
             var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
             if (customer == null)
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                throw new HttpResponseException(HttpStatusCode.NotFound); 
             }
             return Mapper.Map<Customer, CustomerDto>(customer);
         }
