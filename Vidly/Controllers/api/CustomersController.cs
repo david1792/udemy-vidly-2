@@ -25,27 +25,31 @@ namespace Vidly.Controllers.api
             return _context.Customers.ToList().Select(Mapper.Map<Customer, CustomerDto>);//we delete parenthesis because we 're not going to call this method, if we calling that gets executed, but here we need a delegate, a reference to this method
         }
         //get api/customers/{id}
-        public CustomerDto  GetCustomer(int id)
+        public IHttpActionResult GetCustomer(int id)
         {
             var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
             if (customer == null)
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound); 
+                return NotFound();
             }
-            return Mapper.Map<Customer, CustomerDto>(customer);
+            return Ok(Mapper.Map<Customer, CustomerDto>(customer));
         }
         //we can optionally use in name method the keyword Post and we save the annotation but is better implement the annotation
         //post api/customers
         [HttpPost]
-        public CustomerDto CreateCustomer(CustomerDto customerDto)
-        {
+        public IHttpActionResult CreateCustomer(CustomerDto customerDto)
+        {//IHttpActionResult IS SIMILAR to action result in mvc 
             if (!ModelState.IsValid)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+                return BadRequest();
             var customer = Mapper.Map<CustomerDto, Customer>(customerDto);
             _context.Customers.Add(customer);
             _context.SaveChanges();
             customerDto.Id = customer.Id;
-            return customerDto;
+            //create method require a URI of the current resource created and the actual object created
+            //if we want to test this method we need to remove the dataannotation (min18yearsifamember) because we are going to get and exception
+            //why in the logic we cast the object to customer, not customerdto. if we want the webapi aproach we need to delete this attribute
+            //*and we send a request with 201 responce, in header section apear a new attribute cal location whitch is pointing to the new resource created
+            return Created(new Uri(Request.RequestUri + "/" + customer.Id), customerDto);
         }
         //in put method we can ise void or return, in thi case a customer object 
         //put /api/customers/{id}
