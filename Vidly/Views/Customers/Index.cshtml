@@ -23,7 +23,7 @@
 }
 else
 {
-    <table class="table table-striped">
+    <table id="customers" class="table table-striped">
         <thead>
             <tr>
                 <th>Id</th>
@@ -39,9 +39,47 @@ else
                 <td>@i.Id</td>
                 <td>@i.Name</td>
                 <td>@i.MembershipType.MembershipDescription</td>
-                <td>@Html.ActionLink("Details", "Edit", "Customers", new { id = i.Id }, null)</td>@*Si no ponemos el 4to argumento en null no se renderiza bien la url en el enlace*@
+                <td>@Html.ActionLink("Details", "Edit", "Customers", new { id = i.Id }, null)
+                    <button data-customer-id="@i.Id" class="btn-link js-delete" > delete?</button></td>@*Si no ponemos el 4to argumento en null no se renderiza bien la url en el enlace*@
             </tr>
             }
         </tbody>
     </table>
 } 
+@section scripts
+{
+    <script>
+        /*standard jquery document dot ready to reference our delete button*/
+        $(document).ready(function() {
+            /*use jquery, gets the customers table and find all elements with the class 'js-delete'    */
+            /*next use jquery 'on' method to handle the event 'click' and pass a callback function*/
+            /*-----*/
+            /*call a API if this confirm function return true*/
+            /*we want to call the API using ajax and pass a json*/
+            /*get the customer id using a 'data' atribute previous rendering the id with razor*/
+            /*get the current element clicket and retrive the 'data-customer-id' value */
+            /*using delete method*/
+            /* USE THE CALLBACK FUNCTION when the caller is succesfull and delete this record from the table*/
+
+            
+            $('#customers .js-delete').on('click', function () {
+                var button = $(this);
+                if (confirm("delete this prro?")) {
+                    console.log("sfsdfsdfsf " );
+                    $.ajax(
+                    {
+                        url: "/api/customers/" + button.attr("data-customer-id"),
+                        method: "DELETE",
+                        success: function() {
+                            /*if we used 'this' here we won't get the reference of our button because this is a callback function and in JS the
+                             scope of 'this' can change in diferent callback function, so, in the original callback function here witch is called
+                             when the button is clicked i'm going to get the reference of the button clicked (<var button = $(this);>) and then use here... */
+                            button.parents("tr").remove();
+                        }
+                    });
+                }
+            });
+        });
+
+    </script>
+}
