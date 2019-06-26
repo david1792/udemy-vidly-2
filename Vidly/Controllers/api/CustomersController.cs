@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Results;
 using AutoMapper;
 using Vidly.DTOs;
 using Vidly.Models;
@@ -20,9 +22,15 @@ namespace Vidly.Controllers.api
         }
         //get api/customers
 
-        public IEnumerable<CustomerDto> GetCustomers()
+        public OkNegotiatedContentResult<IEnumerable<CustomerDto>> GetCustomers()
         {
-            return _context.Customers.ToList().Select(Mapper.Map<Customer, CustomerDto>);//we delete parenthesis because we 're not going to call this method, if we calling that gets executed, but here we need a delegate, a reference to this method
+            var customerDtos = _context.Customers
+                .Include(c => c.MembershipType)
+                .ToList()
+                .Select(Mapper.Map<Customer, CustomerDto>);//we delete parenthesis because we 're not going to call this method, if we calling that gets executed, but here we need a delegate, a reference to this method
+
+            return Ok(customerDtos);
+
         }
         //get api/customers/{id}
         public IHttpActionResult GetCustomer(int id)
