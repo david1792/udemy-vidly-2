@@ -34,7 +34,7 @@
     <script>
         /*standard jquery document dot ready to reference our delete button*/
         $(document).ready(function () {
-            $("#customers").dataTable({
+           var table = $("#customers").dataTable({
                 ajax: {
                     url: "/api/customers",
                     dataSrc: ""
@@ -74,7 +74,7 @@
                                 url: "/api/customers/" + button.attr("data-customer-id"),
                                 method: "DELETE",
                                 success: function () {
-                                    button.parents("tr").remove();
+                                    table.row(button.parents("tr")).remove().draw();
                                 }
                             });
                     }
