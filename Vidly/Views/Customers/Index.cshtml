@@ -12,7 +12,10 @@
 @{
     ViewBag.Title = "Index";
 }
+@section styles{
+    @Styles.Render("~/Content/datatables")
 
+}
 <h2>Index</h2>
 
 
@@ -33,41 +36,45 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var i in Model) 
+            @foreach (var i in Model)
             {
-            <tr>
-                <td>@i.Id</td>
-                <td>@i.Name</td>
-                <td>@i.MembershipType.MembershipDescription</td>
-                <td>@Html.ActionLink("Details", "Edit", "Customers", new { id = i.Id }, null)
-                    <button data-customer-id="@i.Id" class="btn-link js-delete" > delete?</button></td>@*Si no ponemos el 4to argumento en null no se renderiza bien la url en el enlace*@
-            </tr>
+                <tr>
+                    <td>@i.Id</td>
+                    <td>@i.Name</td>
+                    <td>@i.MembershipType.MembershipDescription</td>
+                    <td>
+                        @Html.ActionLink("Details", "Edit", "Customers", new { id = i.Id }, null)
+                        <button data-customer-id="@i.Id" class="btn-link js-delete"> delete?</button>
+                    </td>@*Si no ponemos el 4to argumento en null no se renderiza bien la url en el enlace*@
+                </tr>
             }
         </tbody>
     </table>
-} 
+}
 @section scripts
 {
+    @Scripts.Render("~/bundles/datatables");
     <script>
         /*standard jquery document dot ready to reference our delete button*/
         $(document).ready(function () {
+            $("#customers").dataTable();
             /* the way by handling the click event is inneficiet because i f we have a 10 customers, each of them have a delete button,
              and for each button w have a separate a handler function in memory, so if we change the sselector for only the table and add a secound argument whitch  is the filter
              no many how many customers render, we have a one event handler for all delete buttons
              only click event works with element with class js-delete*/
-            $('#customers').on('click',  '.js-delete', function () { 
+            $('#customers').on('click', '.js-delete', function () {
                 var button = $(this);
-            /*bootbox doesn't return a boolean, instead takes a callback function*/
-                bootbox.confirm("delete this prro?",function(result) {
-                if (result) {
-                    $.ajax(
-                    {
-                        url: "/api/customers/" + button.attr("data-customer-id"),
-                        method: "DELETE",
-                        success: function() {
-                            button.parents("tr").remove();
-                        }
-                    });
+                /*bootbox doesn't return a boolean, instead takes a callback function*/
+                bootbox.confirm("delete this prro?", function (result) {
+                    if (result) {
+                        $.ajax(
+                            {
+                                url: "/api/customers/" + button.attr("data-customer-id"),
+                                method: "DELETE",
+                                success: function () {
+                                    button.parents("tr").remove();
+                                }
+                            });
                     }
                 });
             });
