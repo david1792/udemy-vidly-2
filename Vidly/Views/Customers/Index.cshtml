@@ -1,5 +1,4 @@
-﻿@model IEnumerable<Vidly.Models.Customer>
-@*
+﻿@*
     Note: I've set the model for this view to IEnumerable<Customer>.
     This is a simple interface implemented by the list class. Since
     in this view we only want to iterate over this list, and we don't
@@ -16,48 +15,51 @@
     @Styles.Render("~/Content/datatables")
 
 }
-<h2>Index</h2>
+<h2>Customers</h2>
 
+<table id="customers" class="table table-bordered table-hover">
+    <thead>
+    <tr>
+        <th>Customer</th>
+        <th>Membership Type</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+</table>
 
-@if (!@Model.Any())
-{
-    @*Any method is for list, == null for single object*@
-    <h2>forbiden prro</h2>
-}
-else
-{
-    <table id="customers" class="table table-striped">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Discount description</th>
-                <th>options</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var i in Model)
-            {
-                <tr>
-                    <td>@i.Id</td>
-                    <td>@i.Name</td>
-                    <td>@i.MembershipType.MembershipDescription</td>
-                    <td>
-                        @Html.ActionLink("Details", "Edit", "Customers", new { id = i.Id }, null)
-                        <button data-customer-id="@i.Id" class="btn-link js-delete"> delete?</button>
-                    </td>@*Si no ponemos el 4to argumento en null no se renderiza bien la url en el enlace*@
-                </tr>
-            }
-        </tbody>
-    </table>
-}
 @section scripts
 {
     @Scripts.Render("~/bundles/datatables");
     <script>
         /*standard jquery document dot ready to reference our delete button*/
         $(document).ready(function () {
-            $("#customers").dataTable();
+            $("#customers").dataTable({
+                ajax: {
+                    url: "/api/customers",
+                    dataSrc: ""
+                },
+                columns:[//BE CAREFOL WITH THE FUCKING MAYUSSS!!
+                {
+                    data: "name",
+                    render: function(data, type, row) {
+                    return "<a href='/customers/edit/" + row.id + "'>" + row.name + "</a>";
+                    }
+                },
+                {
+                    data: "name"
+                },
+                {
+                    data: "id",
+                    render: function(data) {
+                        return "<button class='btn-link js-delete' data-customer-id=" + data + ">Delete</button>";
+                    }
+
+                }
+                ]
+
+            });
+
             /* the way by handling the click event is inneficiet because i f we have a 10 customers, each of them have a delete button,
              and for each button w have a separate a handler function in memory, so if we change the sselector for only the table and add a secound argument whitch  is the filter
              no many how many customers render, we have a one event handler for all delete buttons
