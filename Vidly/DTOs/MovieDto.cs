@@ -16,13 +16,13 @@ namespace Vidly.DTOs
         public String Name { get; set; }
         [Required]
         public DateTime ReleaseDate { get; set; }
-        [Required]
         public DateTime DateAdded { get; set; }
-        [Required]
         //[Validate20Stock]
+        [Range(1, 20)]
         public int Stock { get; set; }
-        [Required]
-        public int GenreId { get; set; }    
+        public int GenreId { get; set; }
+
+        public GenreDto Genre { get; set; }
 
     }
 }
