@@ -50,12 +50,15 @@ else
 {
     <script>
         /*standard jquery document dot ready to reference our delete button*/
-        $(document).ready(function() {
-            $('#customers .js-delete').on('click', function () { 
+        $(document).ready(function () {
+            /* the way by handling the click event is inneficiet because i f we have a 10 customers, each of them have a delete button,
+             and for each button w have a separate a handler function in memory, so if we change the sselector for only the table and add a secound argument whitch  is the filter
+             no many how many customers render, we have a one event handler for all delete buttons
+             only click event works with element with class js-delete*/
+            $('#customers').on('click',  '.js-delete', function () { 
                 var button = $(this);
             /*bootbox doesn't return a boolean, instead takes a callback function*/
-
-            bootbox.confirm("delete this prro?",function(result) {
+                bootbox.confirm("delete this prro?",function(result) {
                 if (result) {
                     $.ajax(
                     {
