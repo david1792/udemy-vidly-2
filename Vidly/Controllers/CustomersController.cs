@@ -90,6 +90,7 @@ namespace Vidly.Controllers
             }
             return RedirectToAction("Index", "Customers");
         }
+        [Authorize]
         public ActionResult Index() 
         {
             return View();
