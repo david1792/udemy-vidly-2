@@ -9,13 +9,11 @@
 }
 
 <h2>Movies</h2>
-@Html.ActionLink("new movie", "Save", "Movie", null, new { @class = "btn btn-primary" })
 <table id="movies" class="table table-striped">
     <thead>
         <tr>
             <th>Movie</th>
             <th>Genre</th>
-            <th>Delete</th>
         </tr>
     </thead>
     <tbody>
@@ -34,18 +32,10 @@
                 },
                 columns: [
                     {
-                        data: "name",
-                        render: function(data, type, movie) {
-                            return "<a href='/movies/SaveEdition/" + movie.id + "'>" + movie.name + "</a>";
-                        }                    },
-                    {
-                        data:"genre.description"
+                        data: "name"
                     },
                     {
-                        data: "id",
-                        render: function(data) {
-                            return "<button class='btn-link js-delete' data-movie-id=" + data + ">Delete</button>";
-                        }
+                        data:"genre.description"
                     }
                     
                 ]

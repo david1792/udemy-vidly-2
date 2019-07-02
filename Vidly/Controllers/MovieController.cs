@@ -22,10 +22,18 @@ namespace Vidly.Controllers
         {
             _context.Dispose();
         }
+
+
         public ActionResult Index()
         {
-            var movies = _context.Movies.Include(g => g.Genre).ToList();
-            return View(movies);
+            if (User.IsInRole(RoleName.CanManageMovie))
+            {
+                return View("List");
+            }
+            else
+            {
+                return View("ReadOnlyList");
+            }
         }
 
         public ActionResult ShowDetails(int id)
@@ -49,6 +57,7 @@ namespace Vidly.Controllers
             return View(viewModel);
 
         }
+        [Authorize(Roles = RoleName.CanManageMovie)]//this overwrite the global authorize filter, we can pass multiple rols separates by comma
         public ActionResult Save()
         {
             MovieFormViewModel movieFormViewModel = new MovieFormViewModel()
