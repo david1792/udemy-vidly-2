@@ -251,8 +251,14 @@
     <Compile Include="Migrations\201907040139182_addDrivingLisenceToApplicationUser.Designer.cs">
       <DependentUpon>201907040139182_addDrivingLisenceToApplicationUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201907080125504_addPhoneField.cs" />
+    <Compile Include="Migrations\201907080125504_addPhoneField.Designer.cs">
+      <DependentUpon>201907080125504_addPhoneField.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\ApplicationDbContext.cs" />
+    <Compile Include="Models\ApplicationUser.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\CustomValidations\Validate20Stock.cs" />
     <Compile Include="Models\Genre.cs" />
@@ -265,6 +271,7 @@
     <Compile Include="ViewModels\CustomerFormViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\ExternalLoginConfirmationViewModel.cs" />
     <Compile Include="ViewModels\MovieFormViewModel.cs" />
     <Compile Include="ViewModels\RandomMovieViewModel.cs" />
   </ItemGroup>
@@ -568,6 +575,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907040139182_addDrivingLisenceToApplicationUser.resx">
       <DependentUpon>201907040139182_addDrivingLisenceToApplicationUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907080125504_addPhoneField.resx">
+      <DependentUpon>201907080125504_addPhoneField.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

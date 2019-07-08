@@ -20,6 +20,7 @@ namespace Vidly.Controllers.api
         {
             _context = new ApplicationDbContext();
         }
+        [Authorize(Roles = RoleName.CanManageMovie)]//this overwrite the global authorize filter, we can pass multiple rols separates by comma
         public IEnumerable<MovieDto> GetMovies()
         {
             var movies = _context.Movies
@@ -28,7 +29,7 @@ namespace Vidly.Controllers.api
                 .Select(Mapper.Map<Movie, MovieDto>);
             return movies;
         }
-
+        [Authorize(Roles = RoleName.CanManageMovie)]//this overwrite the global authorize filter, we can pass multiple rols separates by comma
         public IHttpActionResult GetMovie(int id)
         {
             var movie = _context.Movies.SingleOrDefault(c => c.Id == id);
@@ -39,7 +40,7 @@ namespace Vidly.Controllers.api
 
             return Ok(Mapper.Map<Movie, MovieDto>(movie));
         }
-
+        [Authorize(Roles = RoleName.CanManageMovie)]//this overwrite the global authorize filter, we can pass multiple rols separates by comma
         [HttpPost]
         public IHttpActionResult CreateMovie(MovieDto movieDto)
         {
@@ -51,7 +52,7 @@ namespace Vidly.Controllers.api
             movieDto.Id = movie.Id;
             return Created(new Uri(Request.RequestUri + "/" + movie.Id), movieDto);
         }
-
+        [Authorize(Roles = RoleName.CanManageMovie)]//this overwrite the global authorize filter, we can pass multiple rols separates by comma
         [HttpPut]
         public IHttpActionResult UpdateMovie(int id, MovieDto movieDto)
         {
@@ -65,7 +66,7 @@ namespace Vidly.Controllers.api
             _context.SaveChanges();
             return Ok(Mapper.Map<Movie, MovieDto>(movieInDb));
         }
-
+        [Authorize(Roles = RoleName.CanManageMovie)]//this overwrite the global authorize filter, we can pass multiple rols separates by comma
         [HttpDelete]
         public IHttpActionResult DeleteMovie(int id)
         {

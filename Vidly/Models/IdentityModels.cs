@@ -8,12 +8,14 @@ using Microsoft.AspNet.Identity.EntityFramework;
 namespace Vidly.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
-    public class ApplicationUser : IdentityUser
+    /*public class ApplicationUser : IdentityUser
     {
         [Required]
         [StringLength(255)]
         public string DrivingLicense { get; set; }
-
+        [Required]
+        [StringLength(50)]
+        public string Phone { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -22,7 +24,8 @@ namespace Vidly.Models
             return userIdentity;
         }
     }
-
+    */
+    /*
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Customer> Customers { get; set; }  
@@ -41,4 +44,5 @@ namespace Vidly.Models
             return new ApplicationDbContext();
         }
     }
+    */
 }
