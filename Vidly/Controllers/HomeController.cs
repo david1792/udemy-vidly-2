@@ -27,5 +27,11 @@ namespace Vidly.Controllers
 
             return View();
         }
+        public ActionResult Policy()
+        {
+
+            return View();
+        }
+
     }
 }

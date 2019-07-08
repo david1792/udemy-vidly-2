@@ -9,6 +9,7 @@ namespace Vidly
         {
             filters.Add(new HandleErrorAttribute());
             filters.Add(new AuthorizeAttribute());// if we used this line of code, everyone who visit our web page, must be login, is very restrictive
+            filters.Add(new RequireHttpsAttribute());
         }
     }
 }
